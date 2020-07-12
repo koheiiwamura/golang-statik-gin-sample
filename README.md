@@ -1,0 +1,1 @@
+# golang-statik-gin-sample
