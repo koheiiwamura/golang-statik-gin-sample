@@ -1,0 +1,15 @@
+{
+  "resource": "/oauth/authorize",
+  "path": "/oauth/authorize",
+  "httpMethod": "GET",
+  "headers": {},
+  "queryStringParameters": {
+    "client_id": "oauth-client-1",
+    "redirect_uri": "http://localhost/callback",
+    "scope": "email phone_number",
+    "response_type": "code",
+    "state": "xxxx"
+  },
+  "multiValueQueryStringParameters": {},
+  "body": ""
+}
