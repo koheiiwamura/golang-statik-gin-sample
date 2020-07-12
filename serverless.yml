@@ -1,0 +1,16 @@
+service: golang-statik-gin-sample
+
+provider:
+  name: aws
+  runtime: go1.x
+
+functions:
+  oauth:
+    handler: bin/oauth
+    events:
+      - http:
+          path: oauth/authorize
+          method: GET
+      - http:
+          path: oauth/approve
+          method: POST
