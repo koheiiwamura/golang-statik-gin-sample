@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>oidc-idp-serverless: authorize template</title>
+
+    <link
+      rel="stylesheet"
+      href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css"
+    />
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <style>
+      .container {
+        padding-top: 100px;
+        margin: 0 auto;
+        width: 50%;
+      }
+      .mdl-layout__header-row {
+        margin: 0 auto;
+        width: 70%;
+      }
+      .login-button {
+        margin: 5px 5px 5px 0;
+      }
+      .cancel-button {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">oidc-idp-serverless</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="">アカウント作成</a>
+          </nav>
+        </div>
+      </header>
+    </div>
+
+    <main class="container">
+      <h3>アカウントへのアクセスを許可しますか？</h3>
+      <p><b>ClientID:</b>&emsp;{{.ClientID}}</p>
+
+      <form class="form" action="/dev/oauth/approve" method="POST">
+        <label></label>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input
+            class="mdl-textfield__input"
+            type="text"
+            id="name"
+            name="name"
+          />
+          <label class="mdl-textfield__label" for="name">ユーザー名</label>
+        </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+          <input
+            class="mdl-textfield__input"
+            type="text"
+            id="password"
+            name="password"
+          />
+          <label class="mdl-textfield__label" for="password">パスワード</label>
+        </div>
+        <div class="login-button">
+          <input
+            type="submit"
+            class="login-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+            name="approve"
+            value="ログイン"
+          />
+          <input
+            type="submit"
+            class="cancel-button mdl-button mdl-js-button mdl-button--raised"
+            name="deny"
+            value="キャンセル"
+          />
+        </div>
+
+        <br />
+        {{if .Scope}}
+        <p>このアプリケーションは次のことができます。</p>
+        <ul>
+          {{range $index, $element := .Scope}}
+          <li>
+            <input
+              type="checkbox"
+              name="scope_{{$element}}"
+              id="scope_{{$element}}"
+              checked="checked"
+            />
+            <label for="scope_{{$element}}">{{$element}}</label>
+          </li>
+          {{end}}
+        </ul>
+        {{end}}
+      </form>
+    </main>
+  </body>
+</html>
